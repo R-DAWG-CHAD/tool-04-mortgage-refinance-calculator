@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortgage Refinance Break-Even Calculator | Free Zero-Login Tool</title>
+  <meta name="description" content="Calculate your exact mortgage refinance break-even point in months, monthly principal & interest savings, total lifetime interest saved, and closing cost payback timeline.">
+  <meta name="keywords" content="mortgage refinance calculator, break even refinance calculator, closing cost recovery calculator, interest savings refinance, home loan comparison">
+  <link rel="canonical" href="https://refinancebreakeven.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://refinancebreakeven.app/">
+  <meta property="og:title" content="Mortgage Refinance Break-Even & Savings Calculator">
+  <meta property="og:description" content="Determine if refinancing your mortgage makes financial sense. Calculate break-even months and lifetime interest savings.">
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Mortgage Refinance Break-Even Calculator",
+    "url": "https://refinancebreakeven.app/",
+    "description": "Zero-login real estate and financial tool to evaluate mortgage refinancing payback horizons.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="background-glow"></div>
+
+  <header class="navbar">
+    <div class="logo">
+      <span class="icon">🏡</span>
+      <span class="title">Refinance Architect</span>
+    </div>
+    <div class="badge">Zero-Login & Bank Grade</div>
+  </header>
+
+  <main class="container">
+    <header class="hero">
+      <h1>Mortgage Refinance Break-Even Calculator</h1>
+      <p>Compare your current home loan against a new refinance rate. Calculate your exact break-even timeline, monthly cash flow savings, and net lifetime interest savings.</p>
+    </header>
+
+    <div class="grid">
+      <!-- Input Panel -->
+      <section class="card glass-panel">
+        <h2><span class="step-num">1</span> Existing Mortgage Details</h2>
+
+        <div class="form-group">
+          <label for="currentBalance">Current Remaining Balance ($)</label>
+          <div class="input-wrapper">
+            <span class="prefix">$</span>
+            <input type="number" id="currentBalance" value="380000" min="10000" step="5000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="currentRate">Current Interest Rate (%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="currentRate" value="6.75" min="0.1" max="20" step="0.125">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="currentYearsLeft">Remaining Term (Years)</label>
+            <input type="number" id="currentYearsLeft" value="26" min="1" max="40">
+          </div>
+        </div>
+
+        <h2><span class="step-num">2</span> New Refinance Loan Terms</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="newRate">New Refinance Rate (%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="newRate" value="5.25" min="0.1" max="20" step="0.125">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newTermYears">New Loan Term (Years)</label>
+            <select id="newTermYears">
+              <option value="30" selected>30-Year Fixed</option>
+              <option value="20">20-Year Fixed</option>
+              <option value="15">15-Year Fixed</option>
+              <option value="10">10-Year Fixed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group margin-top">
+          <label for="closingCosts">Total Refinance Closing Costs ($)</label>
+          <div class="input-wrapper">
+            <span class="prefix">$</span>
+            <input type="number" id="closingCosts" value="6500" min="0" step="500">
+          </div>
+          <span class="help-text">Origination, appraisal, title search, escrow, and lender fees.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="rollClosingCosts">
+            <input type="checkbox" id="rollClosingCosts"> Roll Closing Costs into New Loan Balance
+          </label>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <section class="card glass-panel results-section">
+        <h2>Break-Even & Savings Summary</h2>
+
+        <div class="highlight-box">
+          <span class="highlight-label">Refinance Break-Even Timeline</span>
+          <div class="highlight-value" id="breakEvenMonthsDisplay">0 Months</div>
+          <span class="highlight-sub" id="breakEvenYearsDisplay">0.0 Years to Recover Closing Costs</span>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-title">Monthly Payment Savings</span>
+            <span class="metric-value" id="monthlySavingsDisplay">$0.00</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Lifetime Net Savings</span>
+            <span class="metric-value" id="lifetimeSavingsDisplay">$0.00</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Current Monthly P&I</span>
+            <span class="metric-value" id="currentPaymentDisplay">$0.00</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">New Refinanced Monthly P&I</span>
+            <span class="metric-value" id="newPaymentDisplay">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Visual Payback Horizon Progress -->
+        <div class="break-even-visual">
+          <h3>Payback Timeline Visualizer</h3>
+          <div class="timeline-bar">
+            <div id="timelineProgress" class="timeline-fill"></div>
+            <div class="timeline-marker" style="left: 60%;" title="Average Homeowner Tenure (5-7 yrs)">5-Year Mark</div>
+          </div>
+          <p class="timeline-note" id="timelineNote">Analyzing decision viability...</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEO Informational Article Section -->
+    <article class="card glass-panel seo-content">
+      <h2>When Should You Refinance Your Mortgage?</h2>
+      <p>Refinancing a mortgage replaces your existing home loan with a new loan featuring updated interest rates, term lengths, or payment schedules. The fundamental rule of refinancing is ensuring you plan to stay in the property longer than the <strong>break-even period</strong> required to recoup closing costs.</p>
+
+      <h3>How the Break-Even Point is Calculated:</h3>
+      <div class="code-block">
+        <code>Break-Even Period (Months) = Total Refinance Closing Costs / Monthly Payment Savings</code>
+      </div>
+
+      <p>If closing costs are $6,000 and your monthly principal & interest payment drops by $200, your break-even horizon is 30 months (2.5 years). If you sell or move before 30 months, refinancing will result in a net financial loss.</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Refinance Architect. Free Zero-Login Financial Tool.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
